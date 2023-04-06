@@ -4,11 +4,8 @@ const fastcsv = require('fast-csv');
 const RetailStore = require("../models/RetailStore");
 const path = require('path');
 
+/** Helper function for file upload */
 exports.fileupload = function(req, res) {
-	console.log("Inside file Upload!!")
-	console.log('single route')
-	console.log('file:'+JSON.stringify(req.file.path));
-
 
 	let stream = fs.createReadStream(req.file.path)
 
@@ -31,25 +28,22 @@ exports.fileupload = function(req, res) {
 
 			// save to the MongoDB database collection
 			try{
-				console.log("client:" + RetailStore);
 				let CRUDinsert = await RetailStore.insertMany(
 					csvData
 				)
 				const getStoreList = await RetailStore.find().sort({ updated: -1 });
-				console.log("CRUD Insert Many" + CRUDinsert)
 				res.status(200).send(getStoreList);
 
 			} catch(err){
-				console.log("db error:" + err);
 				res.status(400).send(err);
 			}
-			console.log(JSON.stringify(csvData));
 
 		});
 
 	stream.pipe(csvStream);
 }
 
+/** Helper function for Form update */
 exports.update = async function(req, res) {
 	/* Taking the id */
 	const id = req.params.StoreId;
@@ -68,6 +62,7 @@ exports.update = async function(req, res) {
 	}
 }
 
+/** Helper function for getting store details */
 exports.getstoreDetail = async function(req, res) {
     try {
         const id = req.params.StoreId;
@@ -80,6 +75,7 @@ exports.getstoreDetail = async function(req, res) {
 	}
 }
 
+/** Helper function for getting full list */
 exports.list = async function(req, res) {
     try {
         const getStoreList = await RetailStore.find().sort({ updated: -1 });
@@ -91,7 +87,7 @@ exports.list = async function(req, res) {
 	}
 }
 
-/* Helper function to Search */
+/* Helper function for Search Store data */
 exports.searchStore = async function(req, res) {
     try {
 		const seactTxt = req.body.searchText;
