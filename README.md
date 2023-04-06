@@ -1,5 +1,5 @@
 
-# Retail FolerStructure
+# Folder structure
 ![Screenshot](FolderStructure.png)
 ## Prerequisites
 Install Mongo DB and create Database
