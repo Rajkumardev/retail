@@ -1,6 +1,6 @@
 
-# Retail
-
+# Retail FolerStructure
+![Screenshot](FolderStructure.png)
 ## Prerequisites
 Install Mongo DB and create Database
 Install [nodemon](https://www.npmjs.com/package/nodemon)
